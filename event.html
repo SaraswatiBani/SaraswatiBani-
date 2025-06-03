@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>events</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link rel="preload" as="image" href="https://i.postimg.cc/1zxNL77P/Screenshot-20250519-192331-2.png" />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f2f2f2;
+      color: #333;
+    }
+
+    header {
+      background: #004080;
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    h1 {
+      margin-bottom: 0.5rem;
+    }
+
+    .filter-buttons {
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .filter-buttons button {
+      background: #004080;
+      color: white;
+      border: none;
+      margin: 0 0.5rem;
+      padding: 0.5rem 1.2rem;
+      font-size: 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .filter-buttons button:hover,
+    .filter-buttons button.active {
+      background: #0073e6;
+    }
+
+    .events-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 600px) {
+      .events-list {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .event-card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .event-card:hover {
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .event-image {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .event-content {
+      padding: 1rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .event-title {
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .event-date-time,
+    .event-location {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 0.5rem;
+    }
+
+    .event-description {
+      flex-grow: 1;
+      font-size: 1rem;
+      color: #444;
+      margin-bottom: 0.8rem;
+    }
+
+    .rsvp-btn {
+      align-self: flex-start;
+      background: #0073e6;
+      color: white;
+      padding: 0.4rem 0.8rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    .rsvp-btn:hover {
+      background: #005bb5;
+    }
+
+    /* Modal */
+    .modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+
+    .modal.show {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 8px;
+      max-width: 600px;
+      width: 100%;
+      padding: 1.5rem;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 0.5rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #555;
+    }
+
+    .modal-title {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #004080;
+    }
+
+    .modal-text {
+      margin-bottom: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="bg-blue-900 text-white py-4 shadow-md">
+    <div class="container mx-auto px-4 flex items-center justify-between">
+      <img src="https://i.postimg.cc/8P4P7L4m/Chat-GPT-Image-May-17-2025-07-46-57-AM.png" alt="School Logo" class="h-20 w-20 rounded-full" />
+      <div class="text-center flex-1">
+        <h1 class="text-2xl md:text-3xl font-bold">श्री सरस्वती माध्यमिक विद्यालय</h1>
+        <p class="text-2xl"><u>Events</u></p>
+      </div>
+      <img src="https://i.postimg.cc/NFDKq9w6/Flag-of-Nepal-ezgif-com-gif-maker-1.gif" alt="Nepal Flag" class="h-20 w-12 object-contain" />
+    </div>
+  </header>
+
+  
+  
+  <!-- Hamburger + Search Bar -->
+  <div class="flex items-center bg-white px-4 py-2 space-x-3">
+    <!-- Hamburger button -->
+    <button id="menuButton" class="text-3xl text-blue-900 focus:outline-none">☰</button>
+<marquee> <a>"जननी जन्मभूमि स्वर्गादपि गरीयसी"</a></marquee>
+    </div>
+
+  <!-- Slide-Out Menu -->
+  <div id="sideMenu" class="fixed top-0 right-0 w-1/2 h-full bg-white transform translate-x-full transition-transform duration-300 ease-in-out z-50 shadow-lg">
+    <div class="p-6">
+      <button id="closeMenu" class="text-2xl mb-4">✖</button>
+      <ul id="menuLinks" class="space-y-4 text-xl font-semibold text-blue-900">
+        <li><a href="index.html" data-page="home" class="block hover:underline">🏠 गृहपृष्ठ</a></li>
+        <li><a href="worker.html" data-page="worker" class="block hover:underline">👨‍🏫 कर्मचारी परिचय</a></li>
+        <li><a href="event.html" data-page="events" class="block hover:underline">🎉 कार्यक्रमहरू</a></li>
+        <li><a href="" data-page="about" class="block hover:underline">ℹ️ हाम्रो बारेमा</a></li>
+      </ul>
+    </div>
+  </div>
+  
+
+<main>
+  <div class="filter-buttons">
+    <button class="active" data-filter="upcoming">आगामी </button>
+    <button data-filter="past">गएको </button>
+    <button data-filter="all">सबै कार्यक्रमहरू</button>
+  </div>
+
+  <section class="events-list">
+    <!-- घटनाहरू यहाँ लोड हुन्छन् -->
+  </section>
+</main>
+
+<!-- Modal विवरण -->
+<div class="modal">
+  <div class="modal-content">
+    <button class="modal-close" aria-label="बन्द गर्नुहोस्">&times;</button>
+    <h2 class="modal-title" id="modal-title"></h2>
+    <p class="modal-text" id="modal-date"></p>
+    <p class="modal-text" id="modal-location"></p>
+    <p class="modal-text" id="modal-description"></p>
+  </div>
+</div>
+
+<script>
+  const events = [
+  //upcommingevents
+    {
+      id: 1,
+      title: "विज्ञान प्रदर्शनी",
+      date: "2025-07-15",
+      time: "बिहान १०:०० देखि दिउँसो ३:०० सम्म",
+      location: "विद्यालय सभाहल",
+      description: "बिद्यार्थीहरूले तयार पारेका नविनतम वैज्ञानिक परियोजनाहरूको प्रदर्शनी।",
+      image: "https://i.postimg.cc/1zxNL77P/Screenshot-20250519-192331-2.png",
+      rsvpLink: ""
+    },
+    {
+      id: 2,
+      title: "खेलकुद दिवस",
+      date: "2025-06-3",
+      text:"B.S.2082-2-20",
+      time: "बिहान ८:०० देखि दिउँसो २:०० सम्म",
+      location: "विद्यालय खेलमैदान",
+      description: "heee वार्षिक खेलकुद कार्यक्रम जसमा दौड, फुटबल, क्रिकेट र अन्य प्रतियोगिता हुनेछन्।",
+     
+      image: "https://i.postimg.cc/FFpcVZyv/1748868756704.jpg",
+      rsvpLink: ""
+    },
+  
+  {
+      id: 3,
+      title: "खेलकुद दिवस",
+      date: "2025-06-20",
+      time: "बिहान ८:०० देखि दिउँसो २:०० सम्म",
+      location: "विद्यालय खेलमैदान",
+      description: "वार्षिक खेलकुद कार्यक्रम जसमा दौड, फुटबल, क्रिकेट र अन्य प्रतियोगिता हुनेछन्।",
+      image: "https://i.postimg.cc/PJvCHmR3/1748868703107.jpg",
+      rsvpLink: ""
+    }, 
+  
+  //pastevents
+  
+    {
+      id: 4,
+      title: "pop",
+      date: "2025-05-01",
+      time: "बिहान ९:०० देखि साँझ ५:०० सम्म",
+      location: "कला भवन, विद्यालय",
+      description: "हाम्रो विद्यालयका विद्यार्थीहरूको सिर्जनात्मक चित्रकलाहरूको प्रदर्शन।",
+      image: "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=800&q=60",
+      rsvpLink: ""
+    },
+  
+   
+  
+  
+  {
+      id: 5,
+      title: "कला प्रदर्शनी",
+      date: "2025-05-01",
+      time: "बिहान ९:०० देखि साँझ ५:०० सम्म",
+      location: "कला भवन, विद्यालय",
+      description: "हाम्रो विद्यालयका विद्यार्थीहरूको सिर्जनात्मक चित्रकलाहरूको प्रदर्शन।",
+      image: "https://i.postimg.cc/FFpcVZyv/1748868756704.jpg",
+      rsvpLink: ""
+    },
+  
+
+    
+  ];
+   // Hamburger menu toggle
+    const menuButton = document.getElementById('menuButton');
+    const sideMenu = document.getElementById('sideMenu');
+    const closeMenuButton = document.getElementById('closeMenu');
+
+    menuButton.addEventListener('click', () => {
+      sideMenu.classList.remove('translate-x-full');
+      sideMenu.classList.add('translate-x-0');
+    });
+
+    closeMenuButton.addEventListener('click', () => {
+      sideMenu.classList.add('translate-x-full');
+      sideMenu.classList.remove('translate-x-0');
+    });       
+        
+    
+
+  function formatDate(dateStr) {
+    const date = new Date(dateStr);
+    return date.toLocaleDateString('ne-NP', { year: 'numeric', month: 'long', day: 'numeric' });
+  }
+
+  const eventsList = document.querySelector('.events-list');
+  const filterButtons = document.querySelectorAll('.filter-buttons button');
+
+  function renderEvents(filter = 'upcoming') {
+    const now = new Date();
+    let filteredEvents;
+
+    if (filter === 'upcoming') {
+      filteredEvents = events.filter(e => new Date(e.date) >= now);
+    } else if (filter === 'past') {
+      filteredEvents = events.filter(e => new Date(e.date) < now);
+    } else {
+      filteredEvents = events;
+    }
+
+    if (filteredEvents.length === 0) {
+      eventsList.innerHTML = `<p>कुनै पनि कार्यक्रम भेटिएन।</p>`;
+      return;
+    }
+
+    eventsList.innerHTML = filteredEvents.map(event => `
+      <article class="event-card" data-id="${event.id}">
+        <img src="${event.image}" alt="${event.title}" class="event-image" />
+        <div class="event-content">
+          <h3 class="event-title">${event.title}</h3>
+          <p class="event-date-time">📅 ${formatDate(event.date)} | ${event.time}</p>
+          <p class="event-location">📍 ${event.location}</p>
+          <p class="event-description">${event.description.length > 100 ? event.description.slice(0, 100) + '...' : event.description}</p>
+          ${event.rsvpLink ? `<a href="${event.rsvpLink}" class="rsvp-btn" target="_blank">सहभागिता जनाउनुहोस्</a>` : ''}
+        </div>
+      </article>
+    `).join('');
+
+    addEventListeners();
+  }
+
+  function openModal(event) {
+    document.getElementById('modal-title').textContent = event.title;
+    document.getElementById('modal-date').textContent = `मिति: ${formatDate(event.date)} | ${event.time}`;
+    document.getElementById('modal-location').textContent = `स्थान: ${event.location}`;
+    document.getElementById('modal-description').textContent = event.description;
+    document.querySelector('.modal').classList.add('show');
+  }
+
+  function closeModal() {
+    document.querySelector('.modal').classList.remove('show');
+  }
+
+  document.querySelector('.modal-close').addEventListener('click', closeModal);
+  document.querySelector('.modal').addEventListener('click', (e) => {
+    if (e.target.classList.contains('modal')) {
+      closeModal();
+    }
+  });
+
+  function addEventListeners() {
+    const cards = document.querySelectorAll('.event-card');
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        const eventId = card.getAttribute('data-id');
+        const event = events.find(e => e.id == eventId);
+        openModal(event);
+      });
+    });
+  }
+
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderEvents(btn.getAttribute('data-filter'));
+    });
+  });
+
+  renderEvents();
+</script>
+
+</body>
+</html>
