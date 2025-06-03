@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Saraswati Bani.com</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link rel="preload" as="image" href="https://i.postimg.cc/1zxNL77P/Screenshot-20250519-192331-2.png" />
+  <style>
+    #schoolLogo.floatingMenu
+    {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      width: 75px;
+      height: 75px;
+      transition: all 0.2s ease-in-out;
+      z-index: 999;
+      cursor: grab;
+      user-select: none;
+    }
+    #schoolLogo.floating.dragging {
+      cursor: grabbing;
+      transition: none !important;
+    }
+    body.no-scroll {
+      overflow: hidden;
+      touch-action: none;
+    }
+    #slideshowContainer {
+      display: flex;
+      height: 100%;
+      transition: transform 0.7s ease-in-out;
+    }
+  </style>
+</head>
+<body class="bg-beige text-gray-800 font-sans">
+
+  <!-- Floating Menu -->
+  <div id="floatingMenu" class="hidden fixed top-24 left-4 bg-white rounded shadow-lg p-3 space-y-2 z-50">
+    <button class="block w-full text-left text-gray-900 font-semibold hover:underline">👨‍🏫 Staff</button>
+    <button class="block w-full text-left text-gray-900 font-semibold hover:underline">❓ Help</button>
+  </div>
+
+  <!-- Updated Header -->
+  <header class="bg-blue-900 text-white py-6 shadow-md">
+    <div class="container mx-auto px-4 flex items-center justify-between relative">
+      <!-- Logo -->
+      <div class="flex-shrink-0">
+        <img
+          id="schoolLogo"
+          src="https://i.postimg.cc/8P4P7L4m/Chat-GPT-Image-May-17-2025-07-46-57-AM.png"
+          alt="Saraswati School Logo"
+          class="h-20 w-20 rounded-full"
+        />
+      </div>
+
+      <!-- Center Text -->
+      <div class="absolute left-1/2 transform -translate-x-1/2 text-center">
+        <h1 class="text-2xl md:text-3xl font-bold whitespace-nowrap">श्री सरस्वती माध्यमिक विद्यालय</h1>
+        <p class="text-sm md:text-base">📍 कृष्णपुर-०२, बाणी, कञ्चनपुर, नेपाल</p>
+        <p class="text-xs md:text-sm">📚 सिकाइ | 📈 प्रगति | 🫂 अनुशासन | 🌟 उत्कृष्टता</p>
+      </div>
+
+      <!-- Nepal Flag -->
+      <div class="flex-shrink-0">
+        <img
+          src="https://i.postimg.cc/NFDKq9w6/Flag-of-Nepal-ezgif-com-gif-maker-1.gif"
+          alt="Nepal Flag"
+          class="h-23 w-12 object-contain"
+        />
+      </div>
+    </div>
+  </header>
+
+  
+  
+  <!-- Hamburger + Search Bar -->
+  <div class="flex items-center bg-white px-4 py-2 space-x-3">
+    <!-- Hamburger button -->
+    <button id="menuButton" class="text-3xl text-blue-900 focus:outline-none">☰</button>
+<marquee> <a>"जननी जन्मभूमि स्वर्गादपि गरीयसी"</a></marquee>
+    </div>
+
+  <!-- Slide-Out Menu -->
+  <div id="sideMenu" class="fixed top-0 right-0 w-1/2 h-full bg-white transform translate-x-full transition-transform duration-300 ease-in-out z-50 shadow-lg">
+    <div class="p-6">
+      <button id="closeMenu" class="text-2xl mb-4">✖</button>
+      <ul id="menuLinks" class="space-y-4 text-xl font-semibold text-blue-900">
+        <li><a href="#" data-page="home" class="block hover:underline">🏠 गृहपृष्ठ</a></li>
+        <li><a href="worker.html" data-page="worker" class="block hover:underline">👨‍🏫 कर्मचारी परिचय</a></li>
+        <li><a href="event.html" data-page="events" class="block hover:underline">🎉 कार्यक्रमहरू</a></li>
+        <li><a href="" data-page="about" class="block hover:underline">ℹ️ हाम्रो बारेमा</a></li>
+      </ul>
+    </div>
+  </div>
+
+  
+  
+  
+  <!-- Hero Section -->
+  <section class="py-12 bg-white">
+    <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+      <div class="w-full md:w-1/2 mb-8 md:mb-0">
+        <h2 class="text-4xl font-bold text-blue-900 mb-4">श्री सरस्वती माध्यमिक विद्यालयमा हादिक् स्वागत छ !!!</h2>
+        <p class="text-2xl">सिकाइ || प्रगति || अनुशासन || उत्कृष्टता || हाम्रो पहिलो प्राथमिकता !!!</p>
+        <p class="mb-4 font-semibold">👨‍🏫 प्रधानाध्यापक: अम्भा दत्त बणु</p>
+        <a href="#about" class="inline-block bg-yellow-500 text-white px-6 py-2 rounded hover:bg-yellow-600">थप जान्नुहोस्</a>
+      </div>
+      <div class="w-full md:w-1/2 overflow-hidden relative h-[400px] rounded shadow-lg">
+        <div id="slideshowContainer" class="flex h-full transition-transform duration-700 ease-in-out">
+          <!-- Injected by JS -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Facilities Section -->
+  <section id="about" class="py-12 bg-blue-50">
+    <div class="container mx-auto px-4">
+      <h3 class="text-3xl font-semibold text-center text-blue-900 mb-8">हाम्रा सुविधाहरू</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="p-6 text-center bg-white shadow rounded">🧪 जीवविज्ञान प्रयोगशाला</div>
+        <div class="p-6 text-center bg-white shadow rounded">🔬 विज्ञान प्रयोगशाला</div>
+        <div class="p-6 text-center bg-white shadow rounded">🏟️ ठूलो खेल मैदान</div>
+        <div class="p-6 text-center bg-white shadow rounded">🎠 बच्चाहरूको खेल क्षेत्र</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Academics -->
+  <section class="py-12 bg-white">
+    <div class="container mx-auto px-4">
+      <h3 class="text-3xl font-semibold text-center text-blue-900 mb-8">शैक्षिक तहहरू</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+        <div class="p-6 bg-blue-100 rounded shadow">📘 नर्सरी - कक्षा ५</div>
+        <div class="p-6 bg-blue-100 rounded shadow">📗 कक्षा ६ - १०</div>
+        <div class="p-6 bg-blue-100 rounded shadow">📙 कक्षा ११ - १२ (विज्ञान/प्राविधिक)</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-blue-900 text-white text-center py-6 mt-12">
+    <p>© <script>document.write(new Date().getFullYear())</script> श्री सरस्वती माध्यमिक विद्यालय । सर्वाधिकार सुरक्षित।</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    const logo = document.getElementById('schoolLogo');
+    const menu = document.getElementById('floatingMenu');
+    let isFloating = false, isDragging = false;
+    let offsetX = 0, offsetY = 0, targetX = 0, targetY = 0;
+    let animationFrameId = null;
+
+    function keepLogoInBounds(x, y) {
+      const rect = logo.getBoundingClientRect();
+      return {
+        x: Math.max(0, Math.min(window.innerWidth - rect.width, x)),
+        y: Math.max(0, Math.min(window.innerHeight - rect.height, y))
+      };
+    }
+
+    function updatePosition() {
+      const { x, y } = keepLogoInBounds(targetX, targetY);
+      logo.style.left = `${x}px`;
+      logo.style.top = `${y}px`;
+      animationFrameId = null;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 200 && !isFloating) {
+        logo.classList.add('floating');
+        isFloating = true;
+      } else if (window.scrollY <= 200 && isFloating) {
+        logo.classList.remove('floating');
+        isFloating = false;
+        menu.classList.add('hidden');
+      }
+    });
+
+    logo.addEventListener('mousedown', (e) => {
+      if (!isFloating) return;
+      isDragging = true;
+      logo.classList.add('dragging');
+      const rect = logo.getBoundingClientRect();
+      offsetX = e.clientX - rect.left;
+      offsetY = e.clientY - rect.top;
+      document.body.classList.add('no-scroll');
+      e.preventDefault();
+    });
+
+    document.addEventListener('mouseup', () => {
+      isDragging = false;
+      logo.classList.remove('dragging');
+      document.body.classList.remove('no-scroll');
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!isDragging || !isFloating) return;
+      targetX = e.clientX - offsetX;
+      targetY = e.clientY - offsetY;
+      if (!animationFrameId) animationFrameId = requestAnimationFrame(updatePosition);
+    });
+
+    logo.addEventListener('touchstart', (e) => {
+      if (!isFloating) return;
+      isDragging = true;
+      logo.classList.add('dragging');
+      const touch = e.touches[0];
+      const rect = logo.getBoundingClientRect();
+      offsetX = touch.clientX - rect.left;
+      offsetY = touch.clientY - rect.top;
+      document.body.classList.add('no-scroll');
+      e.preventDefault();
+    });
+
+    document.addEventListener('touchend', () => {
+      isDragging = false;
+      logo.classList.remove('dragging');
+      document.body.classList.remove('no-scroll');
+    });
+
+    document.addEventListener('touchmove', (e) => {
+      if (!isDragging || !isFloating) return;
+      const touch = e.touches[0];
+      targetX = touch.clientX - offsetX;
+      targetY = touch.clientY - offsetY;
+      if (!animationFrameId) animationFrameId = requestAnimationFrame(updatePosition);
+    });
+
+    logo.addEventListener('click', () => {
+      if (!isDragging && isFloating) {
+        menu.classList.toggle('hidden');
+      }
+    });
+    
+    
+   // Hamburger menu toggle
+    const menuButton = document.getElementById('menuButton');
+    const sideMenu = document.getElementById('sideMenu');
+    const closeMenuButton = document.getElementById('closeMenu');
+
+    menuButton.addEventListener('click', () => {
+      sideMenu.classList.remove('translate-x-full');
+      sideMenu.classList.add('translate-x-0');
+    });
+
+    closeMenuButton.addEventListener('click', () => {
+      sideMenu.classList.add('translate-x-full');
+      sideMenu.classList.remove('translate-x-0');
+    });  
+    
+    
+    
+    
+
+    // Slideshow
+    const imageUrls = [
+  "https://i.postimg.cc/FFpcVZyv/1748868756704.jpg",
+          "https://i.postimg.cc/SRhBQ4ZB/1748868679985.jpg",
+      "https://i.postimg.cc/1zxNL77P/Screenshot-20250519-192331-2.png",
+      "https://i.postimg.cc/4x6hnQNj/1748868653802.jpg",
+      
+    
+    ];
+    
+    const container = document.getElementById("slideshowContainer");
+    container.innerHTML = "";
+
+    imageUrls.forEach(url => {
+      const imgDiv = document.createElement("div");
+      imgDiv.style.minWidth = "100%";
+      imgDiv.style.height = "210px";
+      imgDiv.innerHTML = `<img src="${url}" loading="lazy" alt="School Event" style="width: 100%; height: 100%; object-fit: cover;" />`;
+      container.appendChild(imgDiv);
+    });
+
+    let index = 0;
+    const total = imageUrls.length;
+
+    setInterval(() => {
+      index = (index + 1) % total;
+      container.style.transform = `translateX(-${index * 100}%)`;
+    }, 2000);
+  </script>
+</body>
+</html>
